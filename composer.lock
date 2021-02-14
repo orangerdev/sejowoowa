@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bd381c31493916f707bd5579e39672b",
+    "content-hash": "8739f002e1b68172781d02bfcab5ed21",
     "packages": [
         {
             "name": "yahnis-elsts/plugin-update-checker",
@@ -50,6 +50,10 @@
                 "theme updates",
                 "wordpress"
             ],
+            "support": {
+                "issues": "https://github.com/YahnisElsts/plugin-update-checker/issues",
+                "source": "https://github.com/YahnisElsts/plugin-update-checker/tree/wp55-auto-updates"
+            },
             "time": "2020-08-21T11:36:45+00:00"
         }
     ],
@@ -60,7 +64,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0.8"
+        "php": ">=7.0.8"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }

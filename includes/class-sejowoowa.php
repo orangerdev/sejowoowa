@@ -115,6 +115,9 @@ class Sejowoowa {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-setting.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-commission.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-woowandroidv2.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -156,7 +159,16 @@ class Sejowoowa {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'sejowoowa_create_plugin_menu' );
 
+		$plugin_setting = new Sejowoowa_Setting( $this->get_plugin_name(), $this->get_version() );
+
+		$this->loader->add_action( 'admin_init', $plugin_setting, 'initialize_general_options' );
+
+		$plugin_commission = new Sejowoowa_Commission();
+
+		$this->loader->add_action( 'admin_init', $plugin_commission, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/commission/update-status-valid', $plugin_commission, 'send_message', 10, 2 );
 	}
 
 	/**

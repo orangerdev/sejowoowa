@@ -100,4 +100,57 @@ class Sejowoowa_Admin {
 
 	}
 
+	/**
+	 * Add custom plugin menu and settings page
+	 */
+	public function sejowoowa_create_plugin_menu() {
+
+	    $plugin_page = add_menu_page(
+	        'Sejowoowa', 								//Page Title
+	        'Sejowoowa', 								//Menu Title
+	        'manage_options', 							//Capability
+	        'sejowoowa-settings', 						//Menu slug
+	        array($this,'sejowoowa_settings_display'), 	//Callback
+	        '', 										//Icon
+	        4											//Priority
+	    );
+	}
+
+	/**
+	 * Renders a simple page to display for the plugin settings pagedefined above
+	 */
+	public function sejowoowa_settings_display() {
+	?>
+
+	    <div class="wrap">
+	        <h2>Sejowoowa Settings</h2>
+
+	        <?php settings_errors(); ?>
+
+	        <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general-options'; ?>
+	        <h2 class="nav-tab-wrapper">
+	        	<a href="?page=sejowoowa-settings&tab=general-options" class="nav-tab <?php echo $active_tab == 'general-options' ? 'nav-tab-active' : ''; ?>">General</a>
+	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Commission</a>
+	        </h2>
+
+	         <?php
+	            if( $active_tab == 'general-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_general_options_group' );
+	                do_settings_sections( 'general_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            } elseif( $active_tab == 'commission-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_wa_options_group' );
+	                do_settings_sections( 'wa_commission_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            }
+	        ?>
+	    </div>
+
+	<?php
+	}
+
 }
