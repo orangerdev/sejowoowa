@@ -129,8 +129,10 @@ class Sejowoowa_Admin {
 
 	        <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general-options'; ?>
 	        <h2 class="nav-tab-wrapper">
-	        	<a href="?page=sejowoowa-settings&tab=general-options" class="nav-tab <?php echo $active_tab == 'general-options' ? 'nav-tab-active' : ''; ?>">General</a>
-	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Commission</a>
+	        	<a href="?page=sejowoowa-settings&tab=general-options" class="nav-tab <?php echo $active_tab == 'general-options' ? 'nav-tab-active' : ''; ?>">Umum</a>
+	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Komisi Affiliasi</a>
+	            <a href="?page=sejowoowa-settings&tab=user-request-fund-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-options' ? 'nav-tab-active' : ''; ?>">Permintaan Pencairan Dana</a>
+	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-options' ? 'nav-tab-active' : ''; ?>">Informasi Pencairan Dana</a>
 	        </h2>
 
 	         <?php
@@ -144,6 +146,18 @@ class Sejowoowa_Admin {
 	            	echo '<form method="post" action="options.php">';
 	                settings_fields( 'sejowoowa_wa_options_group' );
 	                do_settings_sections( 'wa_commission_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            }  elseif( $active_tab == 'user-request-fund-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_user_request_fund_options_group' );
+	                do_settings_sections( 'user_request_fund_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            } elseif( $active_tab == 'admin-request-fund-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_admin_request_fund_options_group' );
+	                do_settings_sections( 'admin_request_fund_page' );
 	                submit_button('Simpan Pengaturan');
 	                echo '</form>';
 	            }

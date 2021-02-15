@@ -58,10 +58,15 @@ class Sejowoowa_Woowandroidv2 {
 		    )
 		);
 
+		error_log( __METHOD__.': param ' . print_r( $param, true ) ); //debug
+
 		$this->body = json_encode( $param );
 		$response = $this->post();
 
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		error_log( __METHOD__.': data ' . print_r( $data, true ) ); //debug
+		
 		return $data;
 	}
 
