@@ -233,12 +233,11 @@ class Admin_Request_Fund_Processed {
 	    // Get main settings
 	    $sjw_setting 		= new Setting();
 	    $service 			= $sjw_setting->get_option_value('woowa_service');
-	    $csid 				= $sjw_setting->get_option_value('csid');
 	    $phone_number 		= $user_phone;
 	    
 	    // Create class
 		$api 				= new Service( $service );
-		$result 			= $api->do_post( $csid, $message, $phone_number );
+		$result 			= $api->do_post( $message, $phone_number );
 	    return $result;
 	}
 

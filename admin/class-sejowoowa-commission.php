@@ -118,8 +118,8 @@ class Commission {
 
 	    	// Create the settings
 		    add_settings_field( 
-		        $option['name'],       								// ID used to identify the field throughout the theme
-		        $option['label'],   								// The label to the left of the option interface element
+		        $option['name'],       					// ID used to identify the field throughout the theme
+		        $option['label'],   					// The label to the left of the option interface element
 		        array( $this, 'field_callback' ),		// The name of the function responsible for rendering the option interface
 		        $this->option_page,    					// The page on which this option will be displayed
 		        $this->section_name,					// The name of the section to which this field belongs
@@ -129,8 +129,8 @@ class Commission {
 
 	    // Register the fields with WordPress 
 	    register_setting(
-	        $this->option_group_name,     		// A settings group name
-	        $this->option_name      			// The name of an option to sanitize and save
+	        $this->option_group_name,     				// A settings group name
+	        $this->option_name      					// The name of an option to sanitize and save
 	    );
 	}
 
@@ -263,12 +263,11 @@ class Commission {
 	    // Get main settings
 	    $sjw_setting 		= new Setting();
 	    $service 			= $sjw_setting->get_option_value('woowa_service');
-	    $csid 				= $sjw_setting->get_option_value('csid');
 	    $phone_number 		= $sjw_setting->get_option_value('admin_phone');
 	    
 	    // Create class
 		$api 				= new Service( $service );
-		$result 			= $api->do_post( $csid, $replaced_message, $phone_number );
+		$result 			= $api->do_post( $replaced_message, $phone_number );
 	    return $result;
 	}
 

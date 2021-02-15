@@ -52,17 +52,17 @@ class Admin_Request_Fund {
 		// Active field
 		$fields[] = array(
 			'name' 	=> 'admin_request_fund_active', 			//Name
-			'label' => 'Aktifkan/Nonaktifkan', 			//Label
-			'desc' 	=> 'Aktifkan notifikasi ini?', 		//Description
-			'type' 	=> 'checkbox', 						//Input type
+			'label' => 'Aktifkan/Nonaktifkan', 					//Label
+			'desc' 	=> 'Aktifkan notifikasi ini?', 				//Description
+			'type' 	=> 'checkbox', 								//Input type
 		);
 
 		// Message field
 		$fields[] = array(
 			'name' 	=> 'admin_request_fund_message', 			//Name
-			'label' => 'Message', 						//Label
+			'label' => 'Message', 								//Label
 			'desc' 	=> 'Shortcode yang tersedia: <code>{site_title}</code>, <code>{site_url}</code>, <code>{amount}</code>, <code>{display_name}</code>, <code>{detail_request_fund}</code>', //Description
-			'type' 	=> 'textarea', 						//Input type
+			'type' 	=> 'textarea', 								//Input type
 		);
 
 		return $fields;
@@ -109,7 +109,7 @@ class Admin_Request_Fund {
 	    // Register a section
 	    add_settings_section(
 	        $this->section_name,  						// ID used to identify this section and with which to register options
-	        'Informasi Pencairan Dana',    		 	// Title to be displayed on the administration page
+	        'Informasi Pencairan Dana',    		 		// Title to be displayed on the administration page
 	        array($this,'section_callback'),  			// Callback used to render the description of the section
 	        $this->option_page    						// Page on which to add this section of options
 	    );
@@ -118,8 +118,8 @@ class Admin_Request_Fund {
 
 	    	// Create the settings
 		    add_settings_field( 
-		        $option['name'],       								// ID used to identify the field throughout the theme
-		        $option['label'],   								// The label to the left of the option interface element
+		        $option['name'],       					// ID used to identify the field throughout the theme
+		        $option['label'],   					// The label to the left of the option interface element
 		        array( $this, 'field_callback' ),		// The name of the function responsible for rendering the option interface
 		        $this->option_page,    					// The page on which this option will be displayed
 		        $this->section_name,					// The name of the section to which this field belongs
@@ -129,8 +129,8 @@ class Admin_Request_Fund {
 
 	    // Register the fields with WordPress 
 	    register_setting(
-	        $this->option_group_name,     		// A settings group name
-	        $this->option_name      			// The name of an option to sanitize and save
+	        $this->option_group_name,     				// A settings group name
+	        $this->option_name      					// The name of an option to sanitize and save
 	    );
 	}
 
@@ -236,12 +236,11 @@ class Admin_Request_Fund {
 	    // Get main settings
 	    $sjw_setting 		= new Setting();
 	    $service 			= $sjw_setting->get_option_value('woowa_service');
-	    $csid 				= $sjw_setting->get_option_value('csid');
 	    $phone_number 		= $sjw_setting->get_option_value('admin_phone');
 	    
 	    // Create class
 		$api 				= new Service( $service );
-		$result 			= $api->do_post( $csid, $message, $phone_number );
+		$result 			= $api->do_post( $message, $phone_number );
 	    return $result;
 	}
 
