@@ -159,40 +159,40 @@ class Sejowoowa {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new \Sejowoowa\Admin( $this->get_plugin_name(), $this->get_version() );
+		$admin = new \Sejowoowa\Admin( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'sejowoowa_create_plugin_menu' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_styles' );
+		$this->loader->add_action( 'admin_enqueue_scripts', $admin, 'enqueue_scripts' );
+		$this->loader->add_action( 'admin_menu', $admin, 'create_plugin_menu' );
 
-		$plugin_setting = new \Sejowoowa\Admin\Setting();
+		$setting = new \Sejowoowa\Admin\Setting();
 
-		$this->loader->add_action( 'admin_init', $plugin_setting, 'initialize_general_options' );
+		$this->loader->add_action( 'admin_init', $setting, 'initialize_general_options' );
 
-		$plugin_commission = new \Sejowoowa\Admin\Commission();
+		$commission = new \Sejowoowa\Admin\Commission();
 
-		$this->loader->add_action( 'admin_init', $plugin_commission, 'initialize_options' );
-		$this->loader->add_action( 'sejowoo/commission/update-status-valid', $plugin_commission, 'send_message', 10, 2 );
+		$this->loader->add_action( 'admin_init', $commission, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/commission/update-status-valid', $commission, 'send_message', 10, 2 );
 
-		$plugin_user_request_fund = new \Sejowoowa\Admin\User_Request_Fund();
+		$user_req_fund = new \Sejowoowa\Admin\User_Request_Fund();
 
-		$this->loader->add_action( 'admin_init', $plugin_user_request_fund, 'initialize_options' );
-		$this->loader->add_action( 'sejowoo/fund/send-request', $plugin_user_request_fund, 'send_message', 10, 2 );
+		$this->loader->add_action( 'admin_init', $user_req_fund, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/send-request', $user_req_fund, 'send_message', 10, 2 );
 
-		$plugin_admin_request_fund = new \Sejowoowa\Admin\Admin_Request_Fund();
+		$admin_req_fund = new \Sejowoowa\Admin\Admin_Request_Fund();
 
-		$this->loader->add_action( 'admin_init', $plugin_admin_request_fund, 'initialize_options' );
-		$this->loader->add_action( 'sejowoo/fund/send-request', $plugin_admin_request_fund, 'send_message', 10, 2 );
+		$this->loader->add_action( 'admin_init', $admin_req_fund, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/send-request', $admin_req_fund, 'send_message', 10, 2 );
 
-		$plugin_user_request_fund_processed = new \Sejowoowa\Admin\User_Request_Fund_Processed();
+		$user_req_fund_processed = new \Sejowoowa\Admin\User_Request_Fund_Processed();
 
-		$this->loader->add_action( 'admin_init', $plugin_user_request_fund_processed, 'initialize_options' );
-		$this->loader->add_action( 'sejowoo/fund/update-request', $plugin_user_request_fund_processed, 'send_message', 10, 2 );
+		$this->loader->add_action( 'admin_init', $user_req_fund_processed, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/update-request', $user_req_fund_processed, 'send_message', 10, 2 );
 
-		$plugin_admin_request_fund_processed = new \Sejowoowa\Admin\Admin_Request_Fund_Processed();
+		$admin_request_fund_processed = new \Sejowoowa\Admin\Admin_Request_Fund_Processed();
 
-		$this->loader->add_action( 'admin_init', $plugin_admin_request_fund_processed, 'initialize_options' );
-		$this->loader->add_action( 'sejowoo/fund/update-request', $plugin_admin_request_fund_processed, 'send_message', 10, 2 );
+		$this->loader->add_action( 'admin_init', $admin_request_fund_processed, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/update-request', $admin_request_fund_processed, 'send_message', 10, 2 );
 	}
 
 	/**

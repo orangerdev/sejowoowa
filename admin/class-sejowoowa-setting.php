@@ -42,6 +42,12 @@ class Setting {
 		$this->option_group_name 	= 'sejowoowa_general_options';
 	}
 
+	/**
+	 * Set class option fields
+	 *
+	 * @since    1.0.0
+	 * @return 	array
+	 */
 	public function set_default_option_fields() {
 
 		$default = array(
@@ -54,6 +60,13 @@ class Setting {
 	    return $default;
 	}
 
+	/**
+	 * Get selected option value
+	 *
+	 * @since    1.0.0
+	 * @param 	$field_name 	The name of the option field.
+	 * @return 	string / bool
+	 */
 	public function get_option_value( $field_name ) {
 
 		$get_options = get_option( $this->option_name );
@@ -65,12 +78,10 @@ class Setting {
 		return false;
 	}
 
-	/* ------------------------------------------------------------------------ *
-	 * Setting Registration
-	 * ------------------------------------------------------------------------ */
-
 	/**
-	 * Initialize general options
+	 * Initialize class options
+	 *
+	 * @since    1.0.0
 	 */
 	public function initialize_general_options() {
 
@@ -125,10 +136,12 @@ class Setting {
 	    );
 	}
 
-	/* ------------------------------------------------------------------------ *
-	 * Section Callbacks
-	 * ------------------------------------------------------------------------ */
-
+	/**
+	 * Display section content
+	 * Callback to initialize_general_options()
+	 *
+	 * @since    1.0.0
+	 */
 	function general_callback() {
 
 		//Set default values
@@ -137,10 +150,13 @@ class Setting {
 		}
 	}
 
-	/* ------------------------------------------------------------------------ *
-	 * Field Callbacks
-	 * ------------------------------------------------------------------------ */
-
+	/**
+	 * Display option field content
+	 * Callback to initialize_general_options()
+	 *
+	 * @since    1.0.0
+	 * @return 	html
+	 */
 	public function woowa_service_callback( $args ) {
 
 	    $field_name 	= 'woowa_service';
@@ -166,6 +182,13 @@ class Setting {
 	    echo $html;
 	}
 
+	/**
+	 * Display option field content
+	 * Callback to initialize_general_options()
+	 *
+	 * @since    1.0.0
+	 * @return 	html
+	 */
 	public function csid_callback( $args ) {
 
 	    $field_name 	= 'csid';
@@ -177,6 +200,13 @@ class Setting {
 	    echo $html;
 	}
 
+	/**
+	 * Display option field content
+	 * Callback to initialize_general_options()
+	 *
+	 * @since    1.0.0
+	 * @return 	html
+	 */
 	public function partnerkey_callback( $args ) {
 
 	    $field_name 	= 'partner_key';
@@ -188,6 +218,13 @@ class Setting {
 	    echo $html;
 	}
 
+	/**
+	 * Display option field content
+	 * Callback to initialize_general_options()
+	 *
+	 * @since    1.0.0
+	 * @return 	html
+	 */
 	public function admin_phone_callback( $args ) {
 
 	    $field_name 	= 'admin_phone';

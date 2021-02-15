@@ -1,6 +1,7 @@
 <?php
 
 namespace Sejowoowa;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -42,6 +43,15 @@ class Admin {
 	private $version;
 
 	/**
+	 * Slug to plugin settings page
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_slug 	The slug to plugin settings page.
+	 */
+	private $plugin_slug;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -50,8 +60,9 @@ class Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->plugin_name 		= $plugin_name;
+		$this->version 			= $version;
+		$this->plugin_slug 		= 'sejowoowa-settings';
 
 	}
 
@@ -103,83 +114,140 @@ class Admin {
 
 	/**
 	 * Add custom plugin menu and settings page
+	 * Hooked via admin_menu, priority 4
+	 *
+	 * @since 1.0.0
 	 */
-	public function sejowoowa_create_plugin_menu() {
+	public function create_plugin_menu() {
 
 	    $plugin_page = add_menu_page(
-	        'Sejowoowa', 								//Page Title
-	        'Sejowoowa', 								//Menu Title
+	        ucfirst( $this->plugin_name ), 				//Page Title
+	        ucfirst( $this->plugin_name ), 				//Menu Title
 	        'manage_options', 							//Capability
-	        'sejowoowa-settings', 						//Menu slug
-	        array($this,'sejowoowa_settings_display'), 	//Callback
+	        $this->plugin_slug, 						//Menu slug
+	        array($this,'settings_display'), 			//Callback
 	        '', 										//Icon
 	        4											//Priority
 	    );
+
 	}
 
 	/**
-	 * Renders a simple page to display for the plugin settings pagedefined above
+	 * Get registered plugin option groups
+	 *
+     * @since 	1.0.0
+     * @return 	array
 	 */
-	public function sejowoowa_settings_display() {
-	?>
+	public function get_settings_tab() {
 
-	    <div class="wrap">
-	        <h2>Sejowoowa Settings</h2>
+		// url => label
+		$options = array(
+			'general-options' 						=> 'Umum',
+			'commission-options' 					=> 'Komisi',
+			'user-request-fund-options' 			=> 'Pencairan',
+			'admin-request-fund-options' 			=> 'Informasi Pencairan',
+			'user-request-fund-processed-options' 	=> 'Proses Pencairan',
+			'admin-request-fund-processed-options' 	=> 'Informasi Proses Pencairan',
+		);
 
-	        <?php settings_errors(); ?>
+		return $options;
 
-	        <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general-options'; ?>
-	        <h2 class="nav-tab-wrapper">
-	        	<a href="?page=sejowoowa-settings&tab=general-options" class="nav-tab <?php echo $active_tab == 'general-options' ? 'nav-tab-active' : ''; ?>">Umum</a>
-	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Komisi</a>
-	            <a href="?page=sejowoowa-settings&tab=user-request-fund-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-options' ? 'nav-tab-active' : ''; ?>">Pencairan</a>
-	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-options' ? 'nav-tab-active' : ''; ?>">Informasi Pencairan</a>
-	            <a href="?page=sejowoowa-settings&tab=user-request-fund-processed-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-processed-options' ? 'nav-tab-active' : ''; ?>">Proses Pencairan</a>
-	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-processed-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-processed-options' ? 'nav-tab-active' : ''; ?>">Informasi Proses Pencairan</a>
-	        </h2>
+	}
 
-	         <?php
-	            if( $active_tab == 'general-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_general_options' );
-	                do_settings_sections( 'general_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            } elseif( $active_tab == 'commission-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_wa_commission_options' );
-	                do_settings_sections( 'wa_commission_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            }  elseif( $active_tab == 'user-request-fund-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_user_request_fund_options' );
-	                do_settings_sections( 'user_request_fund_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            } elseif( $active_tab == 'admin-request-fund-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_admin_request_fund_options' );
-	                do_settings_sections( 'admin_request_fund_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            } elseif( $active_tab == 'user-request-fund-processed-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_user_request_fund_processed_options' );
-	                do_settings_sections( 'user_request_fund_processed_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            } elseif( $active_tab == 'admin-request-fund-processed-options' ) {
-	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_admin_request_fund_processed_options' );
-	                do_settings_sections( 'admin_request_fund_processed_page' );
-	                submit_button('Simpan Pengaturan');
-	                echo '</form>';
-	            }
-	        ?>
-	    </div>
+	/**
+	 * Set custom submit button text on plugin settings page
+	 *
+     * @since 	1.0.0
+     * @return 	string
+	 */
+	public function get_submit_button_text() {
+		return 'Simpan Pengaturan';
+	}
 
-	<?php
+	/**
+	 * Display settings on tabbed navigation plugin settings page
+	 *
+     * @since 	1.0.0
+     * @param 	string 	$active_tab
+     * @return 	array
+	 */
+	public function get_settings_sections( $active_tab ) {
+
+		$active_section = array(
+			'group'	=> NULL,
+			'page'	=> NULL
+		);
+
+		switch ( $active_tab ) {
+
+			case 'general-options':
+				$active_section['group'] = 'sejowoowa_general_options';
+				$active_section['page']	= 'general_page';
+				break;
+			case 'commission-options':
+				$active_section['group'] = 'sejowoowa_wa_commission_options';
+				$active_section['page']	= 'wa_commission_page';
+				break;
+			case 'user-request-fund-options':
+				$active_section['group'] = 'sejowoowa_user_request_fund_options';
+				$active_section['page']	= 'user_request_fund_page';
+				break;
+			case 'admin-request-fund-options':
+				$active_section['group'] = 'sejowoowa_admin_request_fund_options';
+				$active_section['page']	= 'admin_request_fund_page';
+				break;
+			case 'user-request-fund-processed-options':
+				$active_section['group'] = 'sejowoowa_user_request_fund_processed_options';
+				$active_section['page']	= 'user_request_fund_processed_page';
+				break;
+			case 'admin-request-fund-processed-options':
+				$active_section['group'] = 'sejowoowa_admin_request_fund_processed_options';
+				$active_section['page']	= 'admin_request_fund_processed_page';
+				break;
+			default:
+				$active_section['group'] = 'sejowoowa_general_options';
+				$active_section['page']	= 'general_page';
+		
+		}
+
+		return $active_section;
+
+	}
+
+	/**
+	 * Renders a page to display plugin settings
+	 * Callback function to create_plugin_menu()
+	 *
+     * @since 1.0.0
+     * @return html
+	 */
+	public function settings_display() {
+	
+		echo '<div class="wrap">';
+
+		echo '<h2>' . ucfirst( $this->plugin_name ) . '</h2>';
+
+        settings_errors();
+
+        $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general-options';
+
+        echo '<h2 class="nav-tab-wrapper">';
+        foreach ($this->get_settings_tab() as $key => $value) {
+        	$selected = ( $active_tab == $key ) ? 'nav-tab-active' : '';
+        	echo '<a href="?page=' . $this->plugin_slug . '&tab=' . $key .'" class="nav-tab ' . $selected . '">' . $value . '</a>';
+        }
+		echo '</h2>';
+
+        $active_section = $this->get_settings_sections( $active_tab );
+
+        echo '<form method="post" action="options.php">';
+		settings_fields( $active_section[ 'group' ] );
+        do_settings_sections( $active_section[ 'page' ] );
+        submit_button( $this->get_submit_button_text() );
+        echo '</form>';
+
+	    echo '</div>';
+
 	}
 
 }
