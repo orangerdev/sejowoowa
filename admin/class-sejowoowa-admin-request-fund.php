@@ -39,7 +39,7 @@ class Sejowoowa_Admin_Request_Fund {
 		$this->option_name 			= 'sejowoowa_admin_request_fund_options';
 		$this->option_page 			= 'admin_request_fund_page';
 		$this->section_name 		= 'admin_request_fund_section';
-		$this->option_group_name 	= 'sejowoowa_admin_request_fund_options_group';
+		$this->option_group_name 	= 'sejowoowa_admin_request_fund_options';
 	}
 
 	public function get_option_fields() {
@@ -106,7 +106,7 @@ class Sejowoowa_Admin_Request_Fund {
 	    // Register a section
 	    add_settings_section(
 	        $this->section_name,  						// ID used to identify this section and with which to register options
-	        'Permintaan Pencairan Dana',    		 	// Title to be displayed on the administration page
+	        'Informasi Pencairan Dana',    		 	// Title to be displayed on the administration page
 	        array($this,'section_callback'),  			// Callback used to render the description of the section
 	        $this->option_page    						// Page on which to add this section of options
 	    );
@@ -188,9 +188,7 @@ class Sejowoowa_Admin_Request_Fund {
             'bank_name'          => NULL,
             'bank_account'       => NULL,
             'bank_account_owner' => NULL,
-            'id_card'            => NULL,
             'amount'             => 0,
-            'id_card_file'       => NULL
         ));
 
         // Get request data params
@@ -200,10 +198,10 @@ class Sejowoowa_Admin_Request_Fund {
         $amount 				= $request_data['amount'];
 
         $detail_request_fund	= array(
-        	'bank_name' 			=> 'Tujuan Transfer: '.$bank_name,
-        	'bank_account_owner' 	=> 'Nama Pemilik Rekening: '.$bank_account_owner,
-        	'bank_account'			=> 'Nomor Rekening: '.$bank_account,
-        	'amount'				=> 'Jumlah Pencairan: '.strip_tags( wc_price( $amount ) )
+        	'bank_name' 			=> 'Tujuan transfer: '.$bank_name,
+        	'bank_account_owner' 	=> 'Nama pemilik rekening: '.$bank_account_owner,
+        	'bank_account'			=> 'Nomor rekening: '.$bank_account,
+        	'amount'				=> 'Jumlah pencairan: '.strip_tags( wc_price( $amount ) )
         );
 
         $detail_request_fund_message = "\n\n".implode("\n", $detail_request_fund);

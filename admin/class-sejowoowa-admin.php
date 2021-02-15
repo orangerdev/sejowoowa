@@ -130,34 +130,48 @@ class Sejowoowa_Admin {
 	        <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'general-options'; ?>
 	        <h2 class="nav-tab-wrapper">
 	        	<a href="?page=sejowoowa-settings&tab=general-options" class="nav-tab <?php echo $active_tab == 'general-options' ? 'nav-tab-active' : ''; ?>">Umum</a>
-	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Komisi Affiliasi</a>
-	            <a href="?page=sejowoowa-settings&tab=user-request-fund-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-options' ? 'nav-tab-active' : ''; ?>">Permintaan Pencairan Dana</a>
-	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-options' ? 'nav-tab-active' : ''; ?>">Informasi Pencairan Dana</a>
+	            <a href="?page=sejowoowa-settings&tab=commission-options" class="nav-tab <?php echo $active_tab == 'commission-options' ? 'nav-tab-active' : ''; ?>">Komisi</a>
+	            <a href="?page=sejowoowa-settings&tab=user-request-fund-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-options' ? 'nav-tab-active' : ''; ?>">Pencairan</a>
+	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-options' ? 'nav-tab-active' : ''; ?>">Informasi Pencairan</a>
+	            <a href="?page=sejowoowa-settings&tab=user-request-fund-processed-options" class="nav-tab <?php echo $active_tab == 'user-request-fund-processed-options' ? 'nav-tab-active' : ''; ?>">Proses Pencairan</a>
+	            <a href="?page=sejowoowa-settings&tab=admin-request-fund-processed-options" class="nav-tab <?php echo $active_tab == 'admin-request-fund-processed-options' ? 'nav-tab-active' : ''; ?>">Informasi Proses Pencairan</a>
 	        </h2>
 
 	         <?php
 	            if( $active_tab == 'general-options' ) {
 	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_general_options_group' );
+	                settings_fields( 'sejowoowa_general_options' );
 	                do_settings_sections( 'general_page' );
 	                submit_button('Simpan Pengaturan');
 	                echo '</form>';
 	            } elseif( $active_tab == 'commission-options' ) {
 	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_wa_options_group' );
+	                settings_fields( 'sejowoowa_wa_commission_options' );
 	                do_settings_sections( 'wa_commission_page' );
 	                submit_button('Simpan Pengaturan');
 	                echo '</form>';
 	            }  elseif( $active_tab == 'user-request-fund-options' ) {
 	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_user_request_fund_options_group' );
+	                settings_fields( 'sejowoowa_user_request_fund_options' );
 	                do_settings_sections( 'user_request_fund_page' );
 	                submit_button('Simpan Pengaturan');
 	                echo '</form>';
 	            } elseif( $active_tab == 'admin-request-fund-options' ) {
 	            	echo '<form method="post" action="options.php">';
-	                settings_fields( 'sejowoowa_admin_request_fund_options_group' );
+	                settings_fields( 'sejowoowa_admin_request_fund_options' );
 	                do_settings_sections( 'admin_request_fund_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            } elseif( $active_tab == 'user-request-fund-processed-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_user_request_fund_processed_options' );
+	                do_settings_sections( 'user_request_fund_processed_page' );
+	                submit_button('Simpan Pengaturan');
+	                echo '</form>';
+	            } elseif( $active_tab == 'admin-request-fund-processed-options' ) {
+	            	echo '<form method="post" action="options.php">';
+	                settings_fields( 'sejowoowa_admin_request_fund_processed_options' );
+	                do_settings_sections( 'admin_request_fund_processed_page' );
 	                submit_button('Simpan Pengaturan');
 	                echo '</form>';
 	            }

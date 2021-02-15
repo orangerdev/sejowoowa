@@ -120,6 +120,8 @@ class Sejowoowa {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-woowandroidv2.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-user-request-fund.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-admin-request-fund.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-user-request-fund-processed.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-admin-request-fund-processed.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -181,6 +183,16 @@ class Sejowoowa {
 
 		$this->loader->add_action( 'admin_init', $plugin_admin_request_fund, 'initialize_options' );
 		$this->loader->add_action( 'sejowoo/fund/send-request', $plugin_admin_request_fund, 'send_message', 10, 2 );
+
+		$plugin_user_request_fund_processed = new Sejowoowa_User_Request_Fund_Processed();
+
+		$this->loader->add_action( 'admin_init', $plugin_user_request_fund_processed, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/update-request', $plugin_user_request_fund_processed, 'send_message', 10, 2 );
+
+		$plugin_admin_request_fund_processed = new Sejowoowa_Admin_Request_Fund_Processed();
+
+		$this->loader->add_action( 'admin_init', $plugin_admin_request_fund_processed, 'initialize_options' );
+		$this->loader->add_action( 'sejowoo/fund/update-request', $plugin_admin_request_fund_processed, 'send_message', 10, 2 );
 	}
 
 	/**

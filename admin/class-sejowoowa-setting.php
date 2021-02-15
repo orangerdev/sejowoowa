@@ -37,7 +37,7 @@ class Sejowoowa_Setting {
 		$this->option_name 			= 'sejowoowa_general_options';
 		$this->option_page 			= 'general_page';
 		$this->section_name 		= 'general_section';
-		$this->option_group_name 	= 'sejowoowa_general_options_group';
+		$this->option_group_name 	= 'sejowoowa_general_options';
 	}
 
 	public function set_default_option_fields() {

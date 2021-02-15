@@ -39,7 +39,7 @@ class Sejowoowa_Commission {
 		$this->option_name 			= 'sejowoowa_wa_commission_options';
 		$this->option_page 			= 'wa_commission_page';
 		$this->section_name 		= 'wa_commission_section';
-		$this->option_group_name 	= 'sejowoowa_wa_options_group';
+		$this->option_group_name 	= 'sejowoowa_wa_commission_options';
 	}
 
 	public function get_option_fields() {
