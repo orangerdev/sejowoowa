@@ -1,5 +1,6 @@
 <?php
 
+namespace Sejowoowa;
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -20,7 +21,7 @@
  * @subpackage Sejowoowa/admin
  * @author     Woo-Wa and Sejoli <orangerdigiart@gmail.com>
  */
-class Sejowoowa_Admin {
+class Admin {
 
 	/**
 	 * The ID of this plugin.
