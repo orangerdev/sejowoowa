@@ -1,6 +1,9 @@
 <?php
-require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-sejowoowa-setting.php';
-use Sejowoowa\Admin\Sejowoowa_Woowandroidv2 as SJW_Woowandroidv2;
+
+namespace Sejowoowa\Admin;
+
+use Sejowoowa\Admin\Setting;
+use Sejowoowa\Admin\Service;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -22,7 +25,7 @@ use Sejowoowa\Admin\Sejowoowa_Woowandroidv2 as SJW_Woowandroidv2;
  * @subpackage Sejowoowa/admin
  * @author     Woo-Wa and Sejoli <orangerdigiart@gmail.com>
  */
-class Sejowoowa_Admin_Request_Fund_Processed {
+class Admin_Request_Fund_Processed {
 
 	private $option_name;
 	private $option_page;
@@ -228,13 +231,13 @@ class Sejowoowa_Admin_Request_Fund_Processed {
 	    $message 			= str_replace( $find, $replace, $message_content );
 
 	    // Get main settings
-	    $sjw_setting 		= new Sejowoowa_Setting();
+	    $sjw_setting 		= new Setting();
 	    $service 			= $sjw_setting->get_option_value('woowa_service');
 	    $csid 				= $sjw_setting->get_option_value('csid');
 	    $phone_number 		= $user_phone;
 	    
 	    // Create class
-		$api 				= new SJW_Woowandroidv2();
+		$api 				= new Service( $service );
 		$result 			= $api->do_post( $csid, $message, $phone_number );
 	    return $result;
 	}

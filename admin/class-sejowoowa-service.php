@@ -1,5 +1,7 @@
 <?php
+
 namespace Sejowoowa\Admin;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -20,14 +22,28 @@ namespace Sejowoowa\Admin;
  * @subpackage Sejowoowa/admin
  * @author     Woo-Wa and Sejoli <orangerdigiart@gmail.com>
  */
-class Sejowoowa_Woowandroidv2 {
+class Service {
 
 	private $auth_key;
 	private $endpoint;
 	private $body;
 	private $timeout;
 
-	public function __construct() {
+	public function __construct( $service_name ) {
+
+		if( $service_name == 'woowaserver' ) {
+			$this->set_woowa_server_params();
+		} elseif ( $service_name == 'woowandroidv2' ) {
+			$this->set_woowandroidv2_params();
+		}
+	}
+
+	public function set_woowa_server_params() {
+
+		$this->endpoint = 'http://116.203.191.58/api/send_message';
+	}
+
+	public function set_woowandroidv2_params() {
 
 		$this->endpoint = 'https://fcm.googleapis.com/fcm/send';
 		$this->auth_key = 'AIzaSyCyXH1aC4rWgMQhaJuQLUTDXfWRBgrCZF4';
@@ -66,7 +82,7 @@ class Sejowoowa_Woowandroidv2 {
 		$data = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		error_log( __METHOD__.': data ' . print_r( $data, true ) ); //debug
-		
+
 		return $data;
 	}
 

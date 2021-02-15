@@ -1,5 +1,7 @@
 <?php
 
+namespace Sejowoowa\Admin;
+
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -20,7 +22,7 @@
  * @subpackage Sejowoowa/admin
  * @author     Woo-Wa and Sejoli <orangerdigiart@gmail.com>
  */
-class Sejowoowa_Setting {
+class Setting {
 
 	private $option_name;
 	private $option_page;
@@ -45,6 +47,7 @@ class Sejowoowa_Setting {
 		$default = array(
         	'woowa_service'		=> '',
     		'csid' 				=> '',
+    		'partner_key'		=> '',
 	    	'admin_phone' 		=> ''
 	    );
 
@@ -99,6 +102,15 @@ class Sejowoowa_Setting {
 
 	    // Create the settings
 	    add_settings_field( 
+	        'partner_key',                  				// ID used to identify the field throughout the theme
+	        'Partner Key',                          		// The label to the left of the option interface element
+	        array($this,'partnerkey_callback'),       	// The name of the function responsible for rendering the option interface
+	        $this->option_page,  							// The page on which this option will be displayed
+	        $this->section_name							// The name of the section to which this field belongs
+	    );
+
+	    // Create the settings
+	    add_settings_field( 
 	        'admin_phone',               			// ID used to identify the field throughout the theme
 	        'No. Handphone Admin',                  // The label to the left of the option interface element
 	        array($this,'admin_phone_callback'),    // The name of the function responsible for rendering the option interface
@@ -134,10 +146,10 @@ class Sejowoowa_Setting {
 	    $field_name 	= 'woowa_service';
 	    $description 	= 'Pilih server / endpoint yang digunakan';
 	    $option_value 	= $this->get_option_value( $field_name );
-	    $default_select = 'Pilih Service WooWa';
+	    $default_select = '---Pilih Service WooWa----';
 
 	    $service_options = array(
-	    	// 'woowaserver' 	=> 'Woowa Server',
+	    	'woowaserver' 		=> 'Woowa Server',
 	    	// 'woowandroid' 	=> 'Woowandroid',
 	    	'woowandroidv2'		=> 'Woowandroid v2'
 	    );
@@ -158,7 +170,18 @@ class Sejowoowa_Setting {
 
 	    $field_name 	= 'csid';
 	    $option_value 	= $this->get_option_value( $field_name );
-	    $description 	= 'CS ID atau Device ID';
+	    $description 	= 'Wajib diisi jika menggunakan service Wooandroidv2.';
+
+	    $html = '<input type = "text" class="regular-text" id="' . $field_name . '" name="' . $this->option_name . '[' . $field_name . ']" value="' . sanitize_text_field( $option_value ) . '">';
+	    $html .= '<p class="description">' . $description . '</p>';
+	    echo $html;
+	}
+
+	public function partnerkey_callback( $args ) {
+
+	    $field_name 	= 'partner_key';
+	    $option_value 	= $this->get_option_value( $field_name );
+	    $description 	= 'Wajib diisi jika menggunakan service Woowa Server.';
 
 	    $html = '<input type = "text" class="regular-text" id="' . $field_name . '" name="' . $this->option_name . '[' . $field_name . ']" value="' . sanitize_text_field( $option_value ) . '">';
 	    $html .= '<p class="description">' . $description . '</p>';
